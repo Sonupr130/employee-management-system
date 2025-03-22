@@ -46,6 +46,10 @@ app.get("/", (req, res) => {
   });
 });
 
+
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile(path.join(__dirname, 'favicon.ico'));
+});
 // ✅ 404 Route Not Found Handler
 app.use((req, res, next) => {
   res.status(404).json({ message: "❌ Route not found" });
