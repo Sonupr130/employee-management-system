@@ -39,8 +39,16 @@ app.use(authRoutes);
 app.use(payRoutes);
 app.use("/api", payoutRoutes);
 
+app.get("/", (req, res) => {
+  res.send({
+    activeStatus: "Server is running now! 🔥",
+    error: false,
+  });
+});
+
+// ✅ 404 Route Not Found Handler
 app.use((req, res, next) => {
-  res.status(404).json({ message: "Route not found" });
+  res.status(404).json({ message: "❌ Route not found" });
 });
 
 // Real-time Socket.io Logic
