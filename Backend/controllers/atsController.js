@@ -1,8 +1,8 @@
 import Candidate from "../models/CandidateShema.js";
 import Job from "../models/JobSchema.js"; // ✅ Import Job model to fetch job title
-import { downloadResume } from "../utils/downloadResume.js";
+import { downloadResume } from "../Utils/downloadResume.js";
 import { extractTextFromPDF, extractTextFromDOCX } from "../Utils/extractResume.js";
-import { calculateAtsScore } from "../utils/calculateAts.js";
+import { calculateAtsScore } from "../Utils/calculateAts.js";
 import fs from "fs";
 
 
