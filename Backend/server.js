@@ -10,7 +10,7 @@ import http from "http";
 import { Server } from "socket.io";
 import Chat from "./models/ChatSchema.js";
 import chalk from "chalk"; // ✅ Import Chalk for Colored Console Logs
-
+import path from 'path';
 
 dotenv.config();
 connectDB();
