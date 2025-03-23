@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import Barchart from "./Barchart";
 import Chat from "./Chat";
+import config from "../../../config.js";
 
 const Userdashborad = () => {
   const [userName, setUserName] = useState(""); // State to store user name
@@ -23,62 +24,6 @@ const Userdashborad = () => {
     "Compassionate Leave": 15,
   });
 
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     try {
-  //       const token = localStorage.getItem("token");
-  //       if (!token) {
-  //         setError("No authentication token found. Please log in.");
-  //         return;
-  //       }
-
-  //       // ✅ Fetch user data (Single API Call)
-  //       const { data: userData } = await axios.get(
-  //         "http://localhost:5000/get-user-data",
-  //         { headers: { Authorization: `Bearer ${token}` } }
-  //       );
-  //       // console.log("User Data:", userData);
-
-  //       const userId = userData?._id;
-  //       if (!userId) {
-  //         setError("User ID not found.");
-  //         return;
-  //       }
-
-  //       setUserName(userData?.name || "User");
-  //       setJobTitle(userData?.jobTitle || "Job Title");
-
-  //       // ✅ Fetch KPI Data
-  //       const { data: allTodos } = await axios.get(
-  //         `http://localhost:5000/todos/pending/${userId}`
-  //       );
-  //       // console.log("All KPIs:", allTodos);
-  //       setTodos(allTodos.filter((kpi) => kpi.user._id === userId));
-
-  //       // ✅ Fetch Leave History
-  //       const { data: leaveData } = await axios.get(
-  //         "http://localhost:5000/get-leave-history",
-  //         { headers: { Authorization: `Bearer ${token}` } }
-  //       );
-  //       // console.log("Leave History:", leaveData);
-  //       setLeaveHistory(leaveData);
-
-  //       // ✅ Calculate available leave days dynamically
-  //       const updatedBalances = { ...leaveBalances };
-  //       leaveData.forEach((leave) => {
-  //         if (leave.status === "Approved" && updatedBalances[leave.type] !== undefined) {
-  //           updatedBalances[leave.type] -= leave.duration;
-  //         }
-  //       });
-
-  //       setLeaveBalances(updatedBalances);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   fetchUserData();
-  // }, []);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -90,7 +35,8 @@ const Userdashborad = () => {
 
         // ✅ Fetch user data
         const { data: userData } = await axios.get(
-          "http://localhost:5000/get-user-data",
+          // "http://localhost:5000/get-user-data",
+          `${config.backendUrl}/get-user-data`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -107,7 +53,8 @@ const Userdashborad = () => {
 
         // ✅ Fetch Pending Todos
         const { data } = await axios.get(
-          `http://localhost:5000/todos/pending/${userId}`
+          // `http://localhost:5000/todos/pending/${userId}`
+          `${config.backendUrl}/todos/pending/${userId}`
         );
 
         if (data.todos.length === 0) {
@@ -118,7 +65,8 @@ const Userdashborad = () => {
 
         // ✅ Fetch Leave History
         const { data: leaveData } = await axios.get(
-          "http://localhost:5000/get-leave-history",
+          // "http://localhost:5000/get-leave-history",
+          `${config.backendUrl}/get-leave-history`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -150,7 +98,8 @@ const Userdashborad = () => {
 
   const updateTodoStatus = async (todoId, newStatus) => {
     try {
-      await axios.put(`http://localhost:5000/todo/update/${todoId}`, {
+      // await axios.put(`http://localhost:5000/todo/update/${todoId}`, {
+      await axios.put( `${config.backendUrl}/todo/update/${todoId}`, {
         status: newStatus,
       });
 
