@@ -7,6 +7,7 @@ import loe from "../../../assets/Ellipse 14.png";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import ViewProfile from "./ViewProfile";
+import config from "../../../../config.js";
 
 const JobPanels = () => {
   const [employeeCount, setEmployeeCount] = useState(0);
@@ -22,7 +23,8 @@ const JobPanels = () => {
   useEffect(() => {
     // Fetch employee count
     axios
-      .get("http://localhost:5000/users/employee-count")
+      // .get("http://localhost:5000/users/employee-count")
+      .get(`${config.backendUrl}/users/employee-count`)
       .then((response) => {
         setEmployeeCount(response.data.employeesCount);
       })
@@ -32,7 +34,8 @@ const JobPanels = () => {
 
     // Fetch employee data
     axios
-      .get("http://localhost:5000/users")
+      // .get("http://localhost:5000/users")
+      .get(`${config.backendUrl}/users`)
       .then((response) => {
         console.log("Fetched Employees:", response.data);
         const users = response.data.users; // Extract users directly
@@ -43,7 +46,8 @@ const JobPanels = () => {
       });
     // fetch candidates data
     axios
-      .get("http://localhost:5000/candidates")
+      // .get("http://localhost:5000/candidates")
+      .get(`${config.backendUrl}/candidates`)
       .then((response) => {
         console.log("Fetched Candidates:", response.data);
         setCandidates(response.data);
@@ -53,7 +57,8 @@ const JobPanels = () => {
       });
     // ✅ Fetch applied jobs from the API
     axios
-      .get("http://localhost:5000/getall")
+      // .get("http://localhost:5000/getall")
+      .get(`${config.backendUrl}/getall`)
       .then((response) => {
         console.log("Fetched Jobs:", response.data); // Debug response data
         setAppliedJobs(response.data);
@@ -91,7 +96,8 @@ const JobPanels = () => {
   
   const handleDownloadPDF = (employeeId) => {
     axios
-      .get(`http://localhost:5000/users/${employeeId}`)
+      // .get(`http://localhost:5000/users/${employeeId}`)
+      .get(`${config.backendUrl}/users/${employeeId}`)
       .then((response) => {
         const employee = response.data;
         const doc = new jsPDF();

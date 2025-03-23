@@ -4,6 +4,7 @@ import dp from "../assets/dp 1.png";
 import { NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
 import { UserPen, UserPlus } from "lucide-react";
+import config from "../../config.js";
 
 const AdminSideNavbar = () => {
   const [profilePic, setProfilePic] = useState(
@@ -18,7 +19,8 @@ const AdminSideNavbar = () => {
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/admin");
+        // const response = await axios.get("http://localhost:5000/admin");
+        const response = await axios.get(`${config.backendUrl}/admin`);
         console.log("API Response:", response.data.admins[0]._id);
 
         if (response.data.admins && response.data.admins.length > 0) {
@@ -28,7 +30,8 @@ const AdminSideNavbar = () => {
 
           // Fetch profile image after setting adminId
           const imageResponse = await axios.get(
-            `http://localhost:5000/admin/profile-image/${firstAdmin._id}`
+            // `http://localhost:5000/admin/profile-image/${firstAdmin._id}`
+           `${config.backendUrl}/admin/profile-image/${firstAdmin._id}`
           );
 
           if (imageResponse.data.imageUrl) {
@@ -68,7 +71,8 @@ const AdminSideNavbar = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/admin/upload-profile/${adminId}`,
+        // `http://localhost:5000/admin/upload-profile/${adminId}`,
+        `${config.backendUrl}/admin/upload-profile/${adminId}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } } // Set proper headers
       );
@@ -84,7 +88,8 @@ const AdminSideNavbar = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/admin/profile-image/${adminId}`
+        // `http://localhost:5000/admin/profile-image/${adminId}`
+       `${config.backendUrl}/admin/profile-image/${adminId}`
       );
       setProfilePic(response.data.imageUrl);
     } catch (error) {
@@ -97,7 +102,8 @@ const AdminSideNavbar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:5000/admin/logout");
+      // await axios.post("http://localhost:5000/admin/logout");
+      await axios.post(`${config.backendUrl}/admin/logout`);
 
       // Clear authentication token and user data from localStorage
       localStorage.removeItem("token");
