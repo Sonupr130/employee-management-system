@@ -19,7 +19,7 @@ const JobApplicationForm = () => {
       try {
         const response = await axios.get(
           // `http://localhost:5000/apply-job/${encodeURIComponent(jobLink)}`
-          `http://localhost:5000/apply-job/${encodeURIComponent(jobLink)}`
+           `${config.backendUrl}/apply-job/${encodeURIComponent(jobLink)}`
         );
         setJob(response.data);
       } catch (error) {
