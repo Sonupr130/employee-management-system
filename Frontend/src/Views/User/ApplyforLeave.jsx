@@ -1,4 +1,4 @@
-
+import config from "../../../config.js";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import SuccessModal from "./SucessPop"; // Import the Modal component
@@ -45,7 +45,8 @@ const LeaveDashboard = () => {
     
           try {
             setError(null);
-            const response = await axios.get("http://localhost:5000/get-leave-history", {
+            // const response = await axios.get("http://localhost:5000/get-leave-history", {
+            const response = await axios.get(`${config.backendUrl}/get-leave-history`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -106,7 +107,8 @@ const LeaveDashboard = () => {
 
       // Fetch user data using the token
       const userResponse = await axios.get(
-        "http://localhost:5000/get-user-data",
+        // "http://localhost:5000/get-user-data",
+        `${config.backendUrl}/get-user-data`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -134,7 +136,8 @@ const LeaveDashboard = () => {
       console.log("Sending payload:", payload); // Debugging log
 
       const response = await axios.post(
-        "http://localhost:5000/create-leave-application",
+        // "http://localhost:5000/create-leave-application",
+       `${config.backendUrl}/create-leave-application`,
         payload,
         {
           headers: {

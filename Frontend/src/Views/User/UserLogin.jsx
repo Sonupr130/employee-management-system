@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import handshake from "../../assets/handshake.png";
 import logo from "../../assets/kris logo 3.svg";
+import config from "../../../config.js";
 
 const UserLogin = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,8 @@ const UserLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/user/login", {
+      // const response = await axios.post("http://localhost:5000/user/login", {
+      const response = await axios.post(`${config.backendUrl}/user/login`, {
         email,
         password,
       });

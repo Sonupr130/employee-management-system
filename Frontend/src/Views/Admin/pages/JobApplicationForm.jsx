@@ -1,8 +1,7 @@
-
-
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import config from "../../../../config.js";
 
 const JobApplicationForm = () => {
   const { jobLink } = useParams(); // Get jobLink from URL
@@ -19,6 +18,7 @@ const JobApplicationForm = () => {
     const fetchJobDetails = async () => {
       try {
         const response = await axios.get(
+          // `http://localhost:5000/apply-job/${encodeURIComponent(jobLink)}`
           `http://localhost:5000/apply-job/${encodeURIComponent(jobLink)}`
         );
         setJob(response.data);
@@ -51,7 +51,8 @@ const JobApplicationForm = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/apply/${job._id}`,
+        // `http://localhost:5000/apply/${job._id}`,
+       `${config.backendUrl}/apply/${job._id}`,
         formDataToSubmit,
         {
           headers: {

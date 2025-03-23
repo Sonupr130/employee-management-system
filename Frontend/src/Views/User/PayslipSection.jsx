@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Navbar from "./Usernavbar";
+import config from "../../../config.js";
 
 const PayslipSection = () => {
   const [payslips, setPayslips] = useState([]);
@@ -22,7 +22,8 @@ const PayslipSection = () => {
           return;
         }
 
-        const { data: userData } = await axios.get("http://localhost:5000/get-user-data", {
+        // const { data: userData } = await axios.get("http://localhost:5000/get-user-data", {
+        const { data: userData } = await axios.get(`${config.backendUrl}/get-user-data`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -32,7 +33,8 @@ const PayslipSection = () => {
           return;
         }
 
-        const { data: payslipData } = await axios.get(`http://localhost:5000/api/payslips/${userId}`, {
+        // const { data: payslipData } = await axios.get(`http://localhost:5000/api/payslips/${userId}`, {
+        const { data: payslipData } = await axios.get(`${config.backendUrl}/api/payslips/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 

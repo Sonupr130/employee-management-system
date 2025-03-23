@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import config from "../../../config.js";
 
 const Ctc = () => {
   // State to manage input values
@@ -30,7 +31,8 @@ const Ctc = () => {
           return;
         }
   
-        const { data } = await axios.get("http://localhost:5000/get-user-data", {
+        // const { data } = await axios.get("http://localhost:5000/get-user-data", {
+        const { data } = await axios.get(`${config.backendUrl}/get-user-data`, {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in request
           },
@@ -78,7 +80,8 @@ const Ctc = () => {
       }
   
       const { data } = await axios.put(
-        `http://localhost:5000/users/update-contact/${userId}`, // ✅ Ensure correct userId is used
+        // `http://localhost:5000/users/update-contact/${userId}`, 
+       `${config.backendUrl}/users/update-contact/${userId}`, 
         formValues,
         {
           headers: {

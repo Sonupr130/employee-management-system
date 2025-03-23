@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import logo from "../../../assets/kris logo 3.png";
+import config from "../../../../config.js";
 
 const JobDetailPage = () => {
   const { jobId } = useParams();
@@ -18,7 +19,8 @@ const JobDetailPage = () => {
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/job/${jobId}`);
+        // const response = await axios.get(`http://localhost:5000/job/${jobId}`);
+        const response = await axios.get(`${config.backendUrl}/job/${jobId}`);
         setJobDetails(response.data);
         console.log(response.data);
       } catch (error) {
@@ -38,7 +40,8 @@ const JobDetailPage = () => {
     const formattedPhone = formData.phone.trim().slice(0, 10);
 
     try {
-      const response = await axios.post(`http://localhost:5000/jobs/apply/${jobId}`, {
+      // const response = await axios.post(`http://localhost:5000/jobs/apply/${jobId}`, {
+      const response = await axios.post(`${config.backendUrl}/jobs/apply/${jobId}`, {
         ...formData,
         phone: formattedPhone,
       });

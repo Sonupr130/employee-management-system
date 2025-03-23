@@ -9,6 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import config from "../../../config.js";
 
 const Barchart = () => {
   const [data, setData] = useState([]);
@@ -23,7 +24,8 @@ const Barchart = () => {
         }
 
         // Fetch user data using the token
-        const userResponse = await axios.get("http://localhost:5000/get-user-data", {
+        // const userResponse = await axios.get("http://localhost:5000/get-user-data", {
+        const userResponse = await axios.get(`${config.backendUrl}/get-user-data`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -35,7 +37,8 @@ const Barchart = () => {
 
         // Fetch appraisal scores using userId
         const response = await axios.get(
-          `http://localhost:5000/user-appraisal-scores/${userId}`
+          // `http://localhost:5000/user-appraisal-scores/${userId}`
+          `${config.backendUrl}/user-appraisal-scores/${userId}`
         );
 
         setData(response.data);

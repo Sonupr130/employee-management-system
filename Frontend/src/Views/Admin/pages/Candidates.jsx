@@ -3,6 +3,7 @@ import axios from "axios";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import * as XLSX from "xlsx";
+import config from "../../../../config.js";
 
 const Candidates = () => {
   const [candidates, setCandidates] = useState([]);
@@ -13,7 +14,8 @@ const Candidates = () => {
   useEffect(() => {
     const loadCandidates = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/candidates");
+        // const response = await axios.get("http://localhost:5000/candidates");
+        const response = await axios.get(`${config.backendUrl}/candidates`);
         setCandidates(response.data);
       } catch (err) {
         setError("Failed to fetch candidates. Please try again.");

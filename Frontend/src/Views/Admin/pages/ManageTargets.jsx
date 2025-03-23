@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import config from "../../../../config.js";
 
 const ManageTargets = () => {
   const [targets, setTargets] = useState([]);
@@ -10,7 +11,8 @@ const ManageTargets = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/kpi/user");
+        // const response = await axios.get("http://localhost:5000/kpi/user");
+        const response = await axios.get(`${config.backendUrl}/kpi/user`);
         setTargets(response.data);
       } catch (err) {
         setError("Failed to load KPI data.");
@@ -28,7 +30,8 @@ const ManageTargets = () => {
 
   const initiateKPI = async (target) => {
     try {
-      const response = await axios.post("http://localhost:5000/initiate", {
+      // const response = await axios.post("http://localhost:5000/initiate", {
+      const response = await axios.post(`${config.backendUrl}/initiate`, {
         userId: target.user._id,
         kpiId: target._id,
         title: target.title, // Sending title

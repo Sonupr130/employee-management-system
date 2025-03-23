@@ -1,4 +1,4 @@
-
+import config from "../../../config.js";
 import React, { useState, useEffect } from "react";
 import { NotebookPen } from 'lucide-react';
 import axios from "axios";
@@ -21,7 +21,8 @@ const EducationQualifications = () => {
   const getUserData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/get-user-data", {
+      // const response = await axios.get("http://localhost:5000/get-user-data", {
+      const response = await axios.get(`${config.backendUrl}/get-user-data`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log(response);
@@ -43,7 +44,8 @@ const EducationQualifications = () => {
       if (recordId) {
         // Update existing record
         const response = await axios.put(
-          `http://localhost:5000/users/update/${userId}/academic/${recordId}`,
+          // `http://localhost:5000/users/update/${userId}/academic/${recordId}`,
+         `${config.backendUrl}/users/update/${userId}/academic/${recordId}`,
           currentDetail,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -59,7 +61,8 @@ const EducationQualifications = () => {
       } else {
         // Add new record
         const response = await axios.post(
-          `http://localhost:5000/users/add-academic/${userId}`,
+          // `http://localhost:5000/users/add-academic/${userId}`,
+`${config.backendUrl}/users/add-academic/${userId}`,
           currentDetail,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -93,7 +96,8 @@ const EducationQualifications = () => {
       if (recordId) {
         // Update existing professional record
         const response = await axios.put(
-          `http://localhost:5000/users/update/${userId}/professional/${recordId}`,
+          // `http://localhost:5000/users/update/${userId}/professional/${recordId}`,
+          `${config.backendUrl}/users/update/${userId}/professional/${recordId}`,
           currentDetail,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -109,7 +113,8 @@ const EducationQualifications = () => {
       } else {
         // Add new professional record
         const response = await axios.post(
-          `http://localhost:5000/users/add-professional/${userId}`,
+          // `http://localhost:5000/users/add-professional/${userId}`,
+         `${config.backendUrl}/users/add-professional/${userId}`,
           currentDetail,
           { headers: { Authorization: `Bearer ${token}` } }
         );

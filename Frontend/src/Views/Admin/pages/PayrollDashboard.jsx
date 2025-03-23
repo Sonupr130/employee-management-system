@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Banknote, User, Search, CheckCircle } from "lucide-react";
 import axios from "axios";
+import config from "../../../../config.js";
 
 const PayrollDashboard = () => {
   const [userList, setUserList] = useState([]);
@@ -13,7 +14,8 @@ const PayrollDashboard = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/users");
+        // const response = await axios.get("http://localhost:5000/users");
+        const response = await axios.get(`${config.backendUrl}/users`);
         const users = response.data?.users || [];
 
         const processedUsers = await Promise.all(
@@ -78,7 +80,8 @@ const PayrollDashboard = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/payouts", {
+      // const response = await axios.post("http://localhost:5000/api/payouts", {
+      const response = await axios.post(`${config.backendUrl}/api/payouts`, {
         amount: salary,
         userId: selectedUser._id,
         bankDetails: selectedUser.bankDetails[0],

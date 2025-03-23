@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import config from "../../../../config.js";
 
 const Appraisals = () => {
   const [pendingAppraisals, setPendingAppraisals] = useState([]);
@@ -11,7 +12,8 @@ const Appraisals = () => {
     const fetchPendingAppraisals = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:5000/get-all-appraisal-scores"
+          // "http://localhost:5000/get-all-appraisal-scores"
+         `${config.backendUrl}/get-all-appraisal-scores`
         );
         setPendingAppraisals(data);
       } catch (error) {
@@ -27,7 +29,8 @@ const Appraisals = () => {
 
     try {
       await axios.put(
-        `http://localhost:5000/update-appraisal/${selectedAppraisal._id}`,
+        // `http://localhost:5000/update-appraisal/${selectedAppraisal._id}`,
+       `${config.backendUrl}/update-appraisal/${selectedAppraisal._id}`,
         {
           finalScore: score,
           feedback,

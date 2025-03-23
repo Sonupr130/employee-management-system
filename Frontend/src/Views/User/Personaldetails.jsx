@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { UserPen } from 'lucide-react';
+import config from "../../../config.js";
 
 const Personaldetails = () => {
   const [profilePic, setProfilePic] = useState("https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg");//encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvtLcEbK72DdI2-0yjNOHLvzQeJqLRKhirxA&s");
@@ -41,7 +42,8 @@ const Personaldetails = () => {
   
     try {
       const response = await axios.post(
-        `http://localhost:5000/upload-profile/${userId}`,
+        // `http://localhost:5000/upload-profile/${userId}`,
+        `${config.backendUrl}/upload-profile/${userId}`,
         formData,
         {
           headers: {
@@ -66,7 +68,8 @@ const Personaldetails = () => {
     if (!userId) return;
 
     try {
-      const response = await axios.get(`http://localhost:5000/profile-image/${userId}`);
+      // const response = await axios.get(`http://localhost:5000/profile-image/${userId}`);
+      const response = await axios.get(`${config.backendUrl}/profile-image/${userId}`);
       setProfilePic(response.data.imageUrl); // Set the Base64 image
     } catch (error) {
       console.error("Error fetching profile image:", error.response?.data || error.message);
@@ -77,7 +80,8 @@ const Personaldetails = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userResponse = await axios.get("http://localhost:5000/get-user-data", {
+        // const userResponse = await axios.get("http://localhost:5000/get-user-data", {
+        const userResponse = await axios.get(`${config.backendUrl}/get-user-data`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 

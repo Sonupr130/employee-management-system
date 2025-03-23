@@ -1,5 +1,4 @@
-
-
+import config from '../../../../config.js';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -11,7 +10,8 @@ const LeaveHistory = () => {
   useEffect(() => {
     const fetchLeaveApplications = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/leave-applications");
+        // const response = await axios.get("http://localhost:5000/leave-applications");
+        const response = await axios.get(`${config.backendUrl}/leave-applications`);
         setApplications(response.data);
       } catch (error) {
         console.error("Error fetching leave applications:", error);
@@ -27,7 +27,8 @@ const LeaveHistory = () => {
 
   const handleApprove = async (applicationId) => {
     try {
-      const response = await axios.patch(`http://localhost:5000/leave-applications/${applicationId}`, { status: 'Approved' });
+      // const response = await axios.patch(`http://localhost:5000/leave-applications/${applicationId}`, { status: 'Approved' });
+      const response = await axios.patch(`${config.backendUrl}/leave-applications/${applicationId}`, { status: 'Approved' });
   
       console.log("Response after approving:", response.data); // Debugging
   
@@ -44,7 +45,8 @@ const LeaveHistory = () => {
       ));
   
       // Send notification
-      await axios.post("http://localhost:5000/messages", {
+      // await axios.post("http://localhost:5000/messages", {
+      await axios.post(`${config.backendUrl}/messages`, {
         userId: application.userId,  // Use userId from state
         adminId: adminId,
         message: `Your leave application from ${application.startDate} to ${application.endDate} has been approved.`,
@@ -57,7 +59,8 @@ const LeaveHistory = () => {
   
   const handleDecline = async (applicationId) => {
     try {
-      const response = await axios.patch(`http://localhost:5000/leave-applications/${applicationId}`, { status: 'Declined' });
+      // const response = await axios.patch(`http://localhost:5000/leave-applications/${applicationId}`, { status: 'Declined' });
+      const response = await axios.patch(`${config.backendUrl}/leave-applications/${applicationId}`, { status: 'Declined' });
   
       console.log("Response after declining:", response.data); // Debugging
   
@@ -71,7 +74,8 @@ const LeaveHistory = () => {
         app._id === applicationId ? { ...app, status: 'Declined' } : app
       ));
   
-      await axios.post("http://localhost:5000/messages", {
+      // await axios.post("http://localhost:5000/messages", {
+      await axios.post(`${config.backendUrl}/messages`, {
         userId: application.userId,
         adminId: adminId,
         message: `Your leave application from ${application.startDate} to ${application.endDate} has been declined.`,

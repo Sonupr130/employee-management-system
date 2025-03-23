@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form"; // Importing useForm hook for form handling
 import { toast } from "react-toastify";
+import config from "../../../../config.js";
 
 const Leaverecall = () => {
   const [approvedApplications, setApprovedApplications] = useState([]);
@@ -16,7 +17,8 @@ const Leaverecall = () => {
     const fetchApprovedApplications = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/leave-applications/approved"
+          // "http://localhost:5000/leave-applications/approved"
+          `${config.backendUrl}/leave-applications/approved`
         );
         const filteredApplications = response.data.filter(
           (app) => app.status === "Approved"
@@ -54,7 +56,8 @@ const Leaverecall = () => {
 
     // Send Notification to User
     try {
-      const response = await axios.post("http://localhost:5000/notifications", {
+      // const response = await axios.post("http://localhost:5000/notifications", {
+      const response = await axios.post(`${config.backendUrl}/notifications`, {
         userId: selectedApplication.userId, // Ensure this value is not undefined
         message: `Your leave recall has been initiated.`,
       });

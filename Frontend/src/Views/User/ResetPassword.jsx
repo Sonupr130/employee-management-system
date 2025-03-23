@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import logo from "../../assets/kris logo 3.svg";
+import config from '../../../config.js';
 
 const ResetPassword = () => {
   const { resetPasswordToken } = useParams();
@@ -26,7 +27,8 @@ const ResetPassword = () => {
     }
 
     try {
-    const response = await axios.post(`http://localhost:5000/user/reset-password/${resetPasswordToken}`, { newPassword });
+    // const response = await axios.post(`http://localhost:5000/user/reset-password/${resetPasswordToken}`, { newPassword });
+    const response = await axios.post(`${config.backendUrl}/user/reset-password/${resetPasswordToken}`, { newPassword });
       setMessage(response.data.message);
       console.log(response);
       setError('');

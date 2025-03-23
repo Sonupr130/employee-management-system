@@ -21,7 +21,8 @@ const TargetSetup = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/users/get-allusers"); // Replace with your backend endpoint
+        // const response = await axios.get("http://localhost:5000/users/get-allusers"); 
+        const response = await axios.get(`${config.backendUrl}/users/get-allusers`); 
         const users = response.data?.users || []; // Fallback for unexpected response format
         if (Array.isArray(users)) {
           setUserList(users); // Set user list
@@ -102,7 +103,8 @@ const TargetSetup = () => {
         userName: formData.employees, // Map employees to userName
       };
   
-      const response = await axios.post("http://localhost:5000/kpi/create", payload);
+      // const response = await axios.post("http://localhost:5000/kpi/create", payload);
+      const response = await axios.post(`${config.backendUrl}/kpi/create`, payload);
       setSuccessMessage("Target created successfully!");
       setErrorMessage(""); // Clear error messages
       setFormData({

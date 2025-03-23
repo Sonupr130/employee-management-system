@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import logo from "../../assets/kris logo 3.svg";
 import bgImage from "../../assets/backgd.jpg";
+import config from '../../../config.js';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -13,7 +14,8 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/user/forgot-password', { email });
+      // const response = await axios.post('http://localhost:5000/user/forgot-password', { email });
+      const response = await axios.post(`${config.backendUrl}/user/forgot-password`, { email });
       setMessage(response.data.message);
       setError('');
     } catch (err) {

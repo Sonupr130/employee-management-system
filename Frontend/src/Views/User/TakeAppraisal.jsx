@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import config from "../../../config.js";
 
 const TakeAppraisal = () => {
   const [completedTasks, setCompletedTasks] = useState([]);
@@ -19,7 +20,8 @@ const TakeAppraisal = () => {
         }
 
         // Fetch user data
-        const { data: userData } = await axios.get("http://localhost:5000/get-user-data", {
+        // const { data: userData } = await axios.get("http://localhost:5000/get-user-data", {
+        const { data: userData } = await axios.get(`${config.backendUrl}/get-user-data`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -33,7 +35,8 @@ const TakeAppraisal = () => {
         }
 
         // Fetch completed tasks (KPIs)
-        const { data } = await axios.get(`http://localhost:5000/kpi/usercompleted/${fetchedUserId}`);
+        // const { data } = await axios.get(`http://localhost:5000/kpi/usercompleted/${fetchedUserId}`);
+        const { data } = await axios.get(`${config.backendUrl}/kpi/usercompleted/${fetchedUserId}`);
         
         const completed = data
           .filter((kpi) => kpi.status === "Completed")
@@ -77,7 +80,8 @@ const TakeAppraisal = () => {
     });
 
     try {
-      const response = await axios.post("http://localhost:5000/request-appraisal", {
+      // const response = await axios.post("http://localhost:5000/request-appraisal", {
+      const response = await axios.post(`${config.backendUrl}/request-appraisal`, {
         user: userId, // ✅ Send correct userId
         kpis: completedTasks, // ✅ Send correct kpi details
         selfAppraisal,

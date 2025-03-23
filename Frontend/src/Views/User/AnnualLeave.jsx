@@ -1,6 +1,5 @@
-
+import config from "../../../config.js";
 import React, { useState } from "react";
-import Navbar from "./Usernavbar";
 import { useForm } from "react-hook-form";
 import SuccessModal from "./SucessPop";
 import axios from "axios";
@@ -18,7 +17,8 @@ const AnnualLeave = () => {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/create-leave-application",
+        // "http://localhost:5000/create-leave-application",
+        `${config.backendUrl}/create-leave-application`,
         data
       );
       if (response.status === 200) {

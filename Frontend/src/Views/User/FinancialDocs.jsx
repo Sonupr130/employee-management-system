@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import config from "../../../config.js";
 const FinancialDocs = () => {
   const [bankDetails, setBankDetails] = useState([
     {
@@ -22,7 +22,8 @@ const FinancialDocs = () => {
   const fetchUserDetails = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/get-user-data", {
+      // const response = await axios.get("http://localhost:5000/get-user-data", {
+      const response = await axios.get(`${config.backendUrl}/get-user-data`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBankDetails(response.data.bankDetails || []);
@@ -86,7 +87,8 @@ const FinancialDocs = () => {
   
       if (currentDetail._id) {
         // Updating existing entry
-        await axios.put(`http://localhost:5000/users/add-bankinfo/update/${currentDetail._id}`, currentDetail, {
+        // await axios.put(`http://localhost:5000/users/add-bankinfo/update/${currentDetail._id}`, currentDetail, {
+        await axios.put(`${config.backendUrl}/users/add-bankinfo/update/${currentDetail._id}`, currentDetail, {
           headers: { Authorization: `Bearer ${token}` },
         });
   
@@ -95,7 +97,8 @@ const FinancialDocs = () => {
         );
       } else {
         // Adding a new entry, REMOVE _id from the URL
-        const response = await axios.post(`http://localhost:5000/users/add-bankinfo`, currentDetail, {
+        // const response = await axios.post(`http://localhost:5000/users/add-bankinfo`, currentDetail, {
+        const response = await axios.post(`${config.backendUrl}/users/add-bankinfo`, currentDetail, {
           headers: { Authorization: `Bearer ${token}` },
         });
   

@@ -1,5 +1,4 @@
-
-
+import config from "../../../config.js";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -16,7 +15,8 @@ const FamilyDetails = () => {
   const fetchFamilyDetails = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/get-user-data", {
+      // const response = await axios.get("http://localhost:5000/get-user-data", {
+      const response = await axios.get(`${config.backendUrl}/get-user-data`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log("Fetched Family Data:", response.data.familyDetails); 
@@ -67,7 +67,8 @@ const FamilyDetails = () => {
         console.log("🟢 Sending PUT request for update:", currentMember);
         const userId = localStorage.getItem("userId");
         const response = await axios.put(
-          `http://localhost:5000/users/update/${userId}/family/${currentMember._id}`,
+          // `http://localhost:5000/users/update/${userId}/family/${currentMember._id}`,
+          `${config.backendUrl}/users/update/${userId}/family/${currentMember._id}`,
           currentMember,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -85,7 +86,8 @@ const FamilyDetails = () => {
         console.log("🟢 Sending POST request to add new member:", currentMember);
   
         const response = await axios.post(
-          "http://localhost:5000/users/add",
+          // "http://localhost:5000/users/add",
+          `${config.backendUrl}/users/add`,
           currentMember,
           { headers: { Authorization: `Bearer ${token}` } }
         );

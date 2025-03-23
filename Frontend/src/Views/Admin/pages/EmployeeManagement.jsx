@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import config from "../../../../config.js";
 
 const EmployeeManagement = () => {
   const navigate = useNavigate();
@@ -43,7 +44,8 @@ const EmployeeManagement = () => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/users");
+        // const response = await axios.get("http://localhost:5000/users");
+        const response = await axios.get(`${config.backendUrl}/users`);
         console.log("Fetched Employees:", response.data);
         const users = response.data.users; // Set the fetched data to state
         setEmployees(users);
@@ -133,7 +135,8 @@ const EmployeeManagement = () => {
     try {
       // Use the employee's ID to update the correct record
       const response = await fetch(
-        `http://localhost:5000/users/${updatedEmployee._id}`,
+        // `http://localhost:5000/users/${updatedEmployee._id}`,
+        `${config.backendUrl}/users/${updatedEmployee._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

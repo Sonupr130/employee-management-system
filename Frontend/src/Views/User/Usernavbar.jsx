@@ -1,10 +1,10 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import logo from "../../assets/kris logo 3.png";
 import HRlogo from "../../assets/hr.jpg";
 import { Link } from "react-router-dom";
+import config from "../../../config.js";
 
 const Navbar = () => {
   const [notifications, setNotifications] = useState([]);
@@ -27,8 +27,10 @@ const Navbar = () => {
     const fetchData = async () => {
       try {
         const [notificationsRes, messagesRes] = await Promise.all([
-          axios.get(`http://localhost:5000/notifications/${userId}`),
-          axios.get(`http://localhost:5000/messages/${userId}`), // Missing API call added
+          // axios.get(`http://localhost:5000/notifications/${userId}`),
+          // axios.get(`http://localhost:5000/messages/${userId}`), 
+          axios.get(`${config.backendUrl}/notifications/${userId}`),
+          axios.get(`${config.backendUrl}/messages/${userId}`), 
         ]);
   
         setNotifications(
@@ -45,7 +47,8 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:5000/user/logout");
+      // await axios.post("http://localhost:5000/user/logout");
+      await axios.post(`${config.backendUrl}/user/logout`);
       localStorage.removeItem("token"); // Remove token
       localStorage.removeItem("user"); // Remove user data
       localStorage.removeItem("userId");
@@ -61,7 +64,8 @@ const Navbar = () => {
 
   const markNotificationsAsRead = async () => {
     try {
-      await axios.put(`http://localhost:5000/notifications/read/${userId}`);
+      // await axios.put(`http://localhost:5000/notifications/read/${userId}`);
+      await axios.put(`${config.backendUrl}/notifications/read/${userId}`);
       setNotifications((prev) =>
         prev.map((notif) => ({ ...notif, isRead: true }))
       );
@@ -72,7 +76,8 @@ const Navbar = () => {
   };
   const markMessagesAsRead = async () => {
     try {
-      await axios.put(`http://localhost:5000/messages/read/${userId}`);
+      // await axios.put(`http://localhost:5000/messages/read/${userId}`);
+      await axios.put(`${config.backendUrl}/messages/read/${userId}`);
       setMessages((prev) => prev.map((msg) => ({ ...msg, isRead: true })));
     } catch (error) {
       toast.error("Failed to mark messages as read.");
@@ -92,7 +97,8 @@ const Navbar = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/profile-image/${userId}`
+        // `http://localhost:5000/profile-image/${userId}`
+        `${config.backendUrl}/profile-image/${userId}`
       );
       setProfilePic(response.data.imageUrl); // Set the Base64 image
     } catch (error) {
@@ -115,7 +121,8 @@ const Navbar = () => {
   
       try {
         const userResponse = await axios.get(
-          "http://localhost:5000/get-user-data",
+          // "http://localhost:5000/get-user-data",
+          `${config.backendUrl}/get-user-data`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Usernavbar";
 import axios from "axios";
+import config from "../../../config.js";
 
 const ContactDetails = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +17,8 @@ const ContactDetails = () => {
     // Fetch user contact details
     const fetchContactDetails = async () => {
       try {
-        const { data } = await axios.get("http://localhost:5000/get-user-data", {
+        // const { data } = await axios.get("http://localhost:5000/get-user-data", {
+        const { data } = await axios.get(`${config.backendUrl}/get-user-data`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setFormData(data);
@@ -35,7 +37,8 @@ const ContactDetails = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put("http://localhost:5000/users/update-contact", formData, {
+      // await axios.put("http://localhost:5000/users/update-contact", formData, {
+      await axios.put(`${config.backendUrl}/users/update-contact`, formData, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       alert("Contact details updated successfully!");

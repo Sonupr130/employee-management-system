@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import config from "../../../config.js";
 
 const NextDetails = () => {
   // State to manage input values
@@ -27,7 +28,8 @@ const NextDetails = () => {
           return;
         }
 
-        const { data } = await axios.get("http://localhost:5000/get-user-data", {
+        // const { data } = await axios.get("http://localhost:5000/get-user-data", {
+        const { data } = await axios.get(`${config.backendUrl}/get-user-data`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -78,7 +80,8 @@ const NextDetails = () => {
       };
   
       const { data } = await axios.put(
-        `http://localhost:5000/users/update-next-of-kin/${userId}`,
+        // `http://localhost:5000/users/update-next-of-kin/${userId}`,
+        `${config.backendUrl}/users/update-next-of-kin/${userId}`,
         requestBody, // Use the corrected request body
         {
           headers: {

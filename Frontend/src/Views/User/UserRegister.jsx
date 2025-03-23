@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import config from "../../../config.js";
 
 const UserRegister = () => {
   const [formData, setFormData] = useState({
@@ -61,7 +62,8 @@ const UserRegister = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/user/register", {
+      // const response = await axios.post("http://localhost:5000/user/register", {
+      const response = await axios.post(`${config.backendUrl}/user/register`, {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,

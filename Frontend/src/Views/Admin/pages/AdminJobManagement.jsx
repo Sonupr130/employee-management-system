@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
 import { motion } from "framer-motion";
 import axios from "axios";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import config from "../../../../config.js";
 
 const AdminJobManagement = () => {
   const [jobLink, setJobLink] = useState("");
@@ -23,7 +23,8 @@ const AdminJobManagement = () => {
 
   const fetchJobs = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/getall");
+      // const response = await axios.get("http://localhost:5000/getall");
+      const response = await axios.get(`${config.backendUrl}/getall`);
       setJobs(response.data);
     } catch (error) {
       console.error("Error fetching jobs:", error);
@@ -34,7 +35,8 @@ const AdminJobManagement = () => {
     console.log("Sending job data:", jobData); // Debugging log
   
     try {
-      const response = await axios.post("http://localhost:5000/addjob", jobData);
+      // const response = await axios.post("http://localhost:5000/addjob", jobData);
+      const response = await axios.post(`${config.backendUrl}/addjob`, jobData);
       console.log("Job created:", response.data);
       alert(`Job successfully created! Apply using: ${response.data.jobLink}`);
 
@@ -66,7 +68,8 @@ const AdminJobManagement = () => {
         return;
       }
   
-      const response = await axios.delete(`http://localhost:5000/delete/job/${jobId}`);
+      // const response = await axios.delete(`http://localhost:5000/delete/job/${jobId}`);
+      const response = await axios.delete(`${config.backendUrl}/delete/job/${jobId}`);
       console.log("Job deleted:", response);
       fetchJobs();  // Refresh the job list after deletion
     } catch (error) {

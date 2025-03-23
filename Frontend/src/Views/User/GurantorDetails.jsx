@@ -1,5 +1,4 @@
-
-
+import config from "../../../config.js";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import UpdateGuarantorForm from "./UpdateGuarantorForm";
@@ -22,7 +21,8 @@ const GuarantorDetails = () => {
           return;
         }
 
-        const { data } = await axios.get("http://localhost:5000/get-user-data", {
+        // const { data } = await axios.get("http://localhost:5000/get-user-data", {
+        const { data } = await axios.get(`${config.backendUrl}/get-user-data`, {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in request
             "Content-Type": "application/json",
@@ -107,7 +107,8 @@ const GuarantorDetails = () => {
       console.log("Updating with data:", newDetails); // Debugging: See if form data is correct
   
       const { data } = await axios.put(
-        `http://localhost:5000/users/update-guarantor/${userId}`,
+        // `http://localhost:5000/users/update-guarantor/${userId}`,
+        `${config.backendUrl}/users/update-guarantor/${userId}`,
         { guarantorDetails: newDetails },
         {
           headers: {
